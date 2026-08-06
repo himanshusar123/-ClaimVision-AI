@@ -101,7 +101,7 @@ st.markdown("""
         border-radius: 8px;
     }
 </style>
-""", unsafe_allowed_html=True)
+""", unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # Sidebar - Global Settings & API Configuration
@@ -155,8 +155,8 @@ def load_scenario_image(img_name):
 # ---------------------------------------------------------
 # Main Header
 # ---------------------------------------------------------
-st.markdown('<div class="title-gradient">ClaimVision AI</div>', unsafe_allowed_html=True)
-st.markdown('<div class="subtitle">Multimodal Insurance Claims Assessment Assistant & Guardrails Lab</div>', unsafe_allowed_html=True)
+st.markdown('<div class="title-gradient">ClaimVision AI</div>', unsafe_allow_html=True)
+st.markdown('<div class="subtitle">Multimodal Insurance Claims Assessment Assistant & Guardrails Lab</div>', unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # Tabs Navigation
@@ -181,8 +181,8 @@ with tabs[0]:
     col_setup_left, col_setup_right = st.columns([1, 1])
 
     with col_setup_left:
-        st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
-        st.markdown('<div class="card-title">📝 Claim Details Setup</div>', unsafe_allowed_html=True)
+        st.markdown('<div class="premium-card">', unsafe_allow_html=True)
+        st.markdown('<div class="card-title">📝 Claim Details Setup</div>', unsafe_allow_html=True)
         
         # Scenario Selector
         scenario_options = {k: v["title"] for k, v in SCENARIOS.items()}
@@ -219,11 +219,11 @@ with tabs[0]:
             claimant_history = st.selectbox("Previous Claims", ["0 Claims", "1 Claim", "2+ Claims"])
             claimant_postcode = st.text_input("Postcode Area", value="TX-75001")
             
-        st.markdown('</div>', unsafe_allowed_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with col_setup_right:
-        st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
-        st.markdown('<div class="card-title">📸 Visual Evidence</div>', unsafe_allowed_html=True)
+        st.markdown('<div class="premium-card">', unsafe_allow_html=True)
+        st.markdown('<div class="card-title">📸 Visual Evidence</div>', unsafe_allow_html=True)
         
         # File uploader for custom testing
         uploaded_file = st.file_uploader("Upload custom accident photo (PNG/JPG)", type=["png", "jpg", "jpeg"])
@@ -244,7 +244,7 @@ with tabs[0]:
             st.image(pil_image, caption=f"Scenario Image: {img_name}", use_container_width=True)
             img_name_to_use = img_name
 
-        st.markdown('</div>', unsafe_allowed_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("---")
     st.markdown("### 2. Run Multimodal Analysis")
@@ -287,7 +287,7 @@ with tabs[0]:
             st.metric(label="Damage Severity", value=res.damage_assessment.severity)
         with col_res3:
             routing_color = "red" if "Immediate" in res.final_routing else ("orange" if "Escalate" in res.final_routing else "green")
-            st.markdown(f"**Final System Routing:** <span style='color:{routing_color}; font-size:20px; font-weight:bold;'>{res.final_routing}</span>", unsafe_allowed_html=True)
+            st.markdown(f"**Final System Routing:** <span style='color:{routing_color}; font-size:20px; font-weight:bold;'>{res.final_routing}</span>", unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # TAB 2: Prompt Engineering
@@ -299,15 +299,15 @@ with tabs[1]:
     col_pr_left, col_pr_right = st.columns(2)
 
     with col_pr_left:
-        st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
-        st.markdown("#### ❌ Weak Prompt Demonstration", unsafe_allowed_html=True)
+        st.markdown('<div class="premium-card">', unsafe_allow_html=True)
+        st.markdown("#### ❌ Weak Prompt Demonstration", unsafe_allow_html=True)
         st.text_area("Weak Prompt", value=WEAK_PROMPT, height=80, disabled=True)
         st.caption("🚨 **Why this fails in enterprise systems:**\n1. Leads to free-form paragraphs that can't be parsed into a database.\n2. Lacks context (claim value, statement).\n3. Doesn't restrict hallucination (model might invent repair costs or declare fraud).")
-        st.markdown('</div>', unsafe_allowed_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with col_pr_right:
-        st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
-        st.markdown("#### ✅ Production-Grade Structured Prompt (Editable)", unsafe_allowed_html=True)
+        st.markdown('<div class="premium-card">', unsafe_allow_html=True)
+        st.markdown("#### ✅ Production-Grade Structured Prompt (Editable)", unsafe_allow_html=True)
         custom_prompt_text = st.text_area(
             "System Prompt Template",
             value=st.session_state.custom_prompt,
@@ -318,7 +318,7 @@ with tabs[1]:
         if custom_prompt_text != st.session_state.custom_prompt:
             st.session_state.custom_prompt = custom_prompt_text
             st.toast("Prompt template updated!")
-        st.markdown('</div>', unsafe_allowed_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("#### 📐 Target Output Structure (Pydantic Schema)")
     st.markdown("Multimodal outputs must be parsed into downstream systems. ClaimVision enforces JSON output adhering to a strict schema.")
@@ -363,8 +363,8 @@ with tabs[2]:
         col_comp_left, col_comp_right = st.columns([1, 1])
 
         with col_comp_left:
-            st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
-            st.markdown('<div class="card-title">📖 Reported Claims vs Visible Reality</div>', unsafe_allowed_html=True)
+            st.markdown('<div class="premium-card">', unsafe_allow_html=True)
+            st.markdown('<div class="card-title">📖 Reported Claims vs Visible Reality</div>', unsafe_allow_html=True)
             
             # Consistency indicator
             if comp.is_consistent:
@@ -376,11 +376,11 @@ with tabs[2]:
             for obs in res.damage_assessment.observations:
                 st.markdown(f"- 👁️ {obs}")
 
-            st.markdown('</div>', unsafe_allowed_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
         with col_comp_right:
-            st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
-            st.markdown('<div class="card-title">📊 Cross-Reference Matrix</div>', unsafe_allowed_html=True)
+            st.markdown('<div class="premium-card">', unsafe_allow_html=True)
+            st.markdown('<div class="card-title">📊 Cross-Reference Matrix</div>', unsafe_allow_html=True)
             
             # Consistent items
             st.markdown("**Validated Details:**")
@@ -404,7 +404,7 @@ with tabs[2]:
                 st.warning(f"❓ {unv}")
             st.caption("Note: The model recognizes that features like internal damage or driving speed cannot be inferred from a single photograph, avoiding hallucination.")
 
-            st.markdown('</div>', unsafe_allowed_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # TAB 4: Responsible AI
@@ -421,7 +421,7 @@ with tabs[3]:
     with col_priv_left:
         st.image("assets/hail_damage.png", caption="Raw Image (With visible face reflection and license plate)", use_container_width=True)
     with col_priv_right:
-        st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
+        st.markdown('<div class="premium-card">', unsafe_allow_html=True)
         st.markdown("**Privacy Redaction Simulation**")
         st.markdown("If we toggle privacy redaction, the front-end redacts sensitive regions before prompt compilation:")
         
@@ -438,7 +438,7 @@ with tabs[3]:
                 st.success("✅ No privacy flags raised for the current scenario.")
         else:
             st.info("Analyze a scenario to view privacy flags.")
-        st.markdown('</div>', unsafe_allowed_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     # 2. Bias Mitigation
     st.markdown("#### ⚖️ Shield 2: Demographic Bias Filter")
@@ -446,7 +446,7 @@ with tabs[3]:
     
     col_bias_left, col_bias_right = st.columns(2)
     with col_bias_left:
-        st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
+        st.markdown('<div class="premium-card">', unsafe_allow_html=True)
         st.markdown("**Without Bias Filter (Unsafe)**")
         st.caption("Sending all variables to the model can lead to discriminatory profiling.")
         st.code(f"""
@@ -458,10 +458,10 @@ with tabs[3]:
   "customer_description": "{cust_desc}"
 }}
         """, language="json")
-        st.markdown('</div>', unsafe_allowed_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
         
     with col_bias_right:
-        st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
+        st.markdown('<div class="premium-card">', unsafe_allow_html=True)
         st.markdown("**With Active Bias Mitigation (Safe)**")
         st.caption("We scrub demographic variables. The prompt sent to Gemini focuses ONLY on objective features.")
         st.code(f"""
@@ -472,7 +472,7 @@ with tabs[3]:
 }}
         """, language="json")
         st.success("🔒 Mitigated: All claimant demographic traits have been stripped out. The damage assessment is 100% anonymous and unbiased.")
-        st.markdown('</div>', unsafe_allowed_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     # 3. Policy Guardrails
     st.markdown("#### 🚫 Shield 3: Policy Guardrails & Anti-Hallucination")
@@ -480,12 +480,12 @@ with tabs[3]:
     
     col_pol1, col_pol2 = st.columns(2)
     with col_pol1:
-        st.markdown('<div class="premium-card" style="border-left: 5px solid #ef4444;">', unsafe_allowed_html=True)
+        st.markdown('<div class="premium-card" style="border-left: 5px solid #ef4444;">', unsafe_allow_html=True)
         st.markdown("**Forbidden Actions Checked**")
         st.markdown("- ❌ Estimate exact repair costs in dollars\n- ❌ Declare customer committed fraud\n- ❌ State legal liability (who is 'at fault')")
-        st.markdown('</div>', unsafe_allowed_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
     with col_pol2:
-        st.markdown('<div class="premium-card" style="border-left: 5px solid #10b981;">', unsafe_allowed_html=True)
+        st.markdown('<div class="premium-card" style="border-left: 5px solid #10b981;">', unsafe_allow_html=True)
         st.markdown("**Guardrail Interception Results**")
         if st.session_state.analysis_result:
             # Check model outputs for violations
@@ -505,7 +505,7 @@ with tabs[3]:
                 st.success("✅ Output Verified: No policy violations detected. The AI remained strictly objective.")
         else:
             st.caption("Analyze a scenario to view guardrail verification.")
-        st.markdown('</div>', unsafe_allowed_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # TAB 5: HITL Routing
@@ -523,19 +523,19 @@ with tabs[4]:
         col_hitl_left, col_hitl_right = st.columns([1.2, 1])
         
         with col_hitl_left:
-            st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
-            st.markdown('<div class="card-title">🚦 Routing Decision Path</div>', unsafe_allowed_html=True)
+            st.markdown('<div class="premium-card">', unsafe_allow_html=True)
+            st.markdown('<div class="card-title">🚦 Routing Decision Path</div>', unsafe_allow_html=True)
             
             # Badge rendering based on routing
             routing = res.final_routing
             if "High Risk" in routing:
-                st.markdown(f'<span class="badge badge-high" style="font-size:1rem; padding: 6px 12px;">{routing}</span>', unsafe_allowed_html=True)
+                st.markdown(f'<span class="badge badge-high" style="font-size:1rem; padding: 6px 12px;">{routing}</span>', unsafe_allow_html=True)
                 st.error("🚨 Escalated: This claim requires manual review by an experienced Claims Officer.")
             elif "Medium Risk" in routing:
-                st.markdown(f'<span class="badge badge-medium" style="font-size:1rem; padding: 6px 12px;">{routing}</span>', unsafe_allowed_html=True)
+                st.markdown(f'<span class="badge badge-medium" style="font-size:1rem; padding: 6px 12px;">{routing}</span>', unsafe_allow_html=True)
                 st.warning("⚠️ Escalate: This claim is routed to a Claims Specialist.")
             else:
-                st.markdown(f'<span class="badge badge-low" style="font-size:1rem; padding: 6px 12px;">{routing}</span>', unsafe_allowed_html=True)
+                st.markdown(f'<span class="badge badge-low" style="font-size:1rem; padding: 6px 12px;">{routing}</span>', unsafe_allow_html=True)
                 st.success("✅ Auto-Processed: This claim meets all low-risk requirements and can be fast-tracked.")
 
             # Display review checklist
@@ -551,11 +551,11 @@ with tabs[4]:
                 icon = "🟢" if "Passed" in status else "🔴"
                 st.markdown(f"{icon} **{check}**: {status}")
 
-            st.markdown('</div>', unsafe_allowed_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
         with col_hitl_right:
-            st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
-            st.markdown('<div class="card-title">📋 Human Review Details</div>', unsafe_allowed_html=True)
+            st.markdown('<div class="premium-card">', unsafe_allow_html=True)
+            st.markdown('<div class="card-title">📋 Human Review Details</div>', unsafe_allow_html=True)
             
             if assess.requires_human_review:
                 st.markdown("**Reasons for Human Escalation:**")
@@ -570,7 +570,7 @@ with tabs[4]:
                     st.markdown(f"- ⚠️ {lim}")
             else:
                 st.caption("No limitations reported.")
-            st.markdown('</div>', unsafe_allowed_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
 # ---------------------------------------------------------
 # TAB 6: Evaluation Scorecard
@@ -583,8 +583,8 @@ with tabs[5]:
     col_score1, col_score2 = st.columns([1, 1.2])
 
     with col_score1:
-        st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
-        st.markdown('<div class="card-title">📝 Scorecard Editor</div>', unsafe_allowed_html=True)
+        st.markdown('<div class="premium-card">', unsafe_allow_html=True)
+        st.markdown('<div class="card-title">📝 Scorecard Editor</div>', unsafe_allow_html=True)
         
         v_acc = st.slider("Visual Accuracy (Did it identify the correct details?)", 1, 5, 4)
         grounded = st.slider("Groundedness (Are conclusions supported by the image/text?)", 1, 5, 5)
@@ -595,11 +595,11 @@ with tabs[5]:
         
         eval_notes = st.text_area("Evaluation Comments / Findings", "The model successfully followed the structured output format, ignored the demographic variables, and identified the inconsistencies in claim 2.")
         
-        st.markdown('</div>', unsafe_allowed_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
     with col_score2:
-        st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
-        st.markdown('<div class="card-title">🕸️ Evaluation Radar Chart</div>', unsafe_allowed_html=True)
+        st.markdown('<div class="premium-card">', unsafe_allow_html=True)
+        st.markdown('<div class="card-title">🕸️ Evaluation Radar Chart</div>', unsafe_allow_html=True)
         
         # Plotly Radar Chart
         categories = ['Visual Accuracy', 'Groundedness', 'Completeness', 
@@ -629,7 +629,7 @@ with tabs[5]:
         )
         
         st.plotly_chart(fig, use_container_width=True)
-        st.markdown('</div>', unsafe_allowed_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
         
     st.markdown("---")
     st.markdown("### Export Evaluation Report")
@@ -664,8 +664,8 @@ with tabs[6]:
     st.markdown("### Enterprise Production Architecture")
     st.markdown("Deploying a multimodal assistant requires an architecture containing validation layers, privacy redactions, prompt injectors, policy guardrails, and HITL queues.")
 
-    st.markdown('<div class="premium-card">', unsafe_allowed_html=True)
-    st.markdown('<div class="card-title">🏗️ System Architecture Flow</div>', unsafe_allowed_html=True)
+    st.markdown('<div class="premium-card">', unsafe_allow_html=True)
+    st.markdown('<div class="card-title">🏗️ System Architecture Flow</div>', unsafe_allow_html=True)
     
     st.markdown("""
 ```mermaid
@@ -692,7 +692,7 @@ graph TD
     class E model;
     class A,D,F,I,J,K regular;
 ```
-    """, unsafe_allowed_html=False)
+    """, unsafe_allow_html=False)
     
     st.markdown("#### Architectural Layer Explanations:")
     
@@ -720,4 +720,4 @@ graph TD
         - Publishes structural updates directly to claims core databases via verified transaction logs.
         """)
         
-    st.markdown('</div>', unsafe_allowed_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
